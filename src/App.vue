@@ -2,15 +2,11 @@
   <q-layout view="lHh lpr lff">
     <q-header reveal class="bg-primary text-white">
       <q-toolbar>
-        <q-btn dense flat round icon="menu" @click="toggleLeftDrawer" />
+        <Button dense flat round icon="mdi-menu" @click="toggleLeftDrawer" />
 
         <q-toolbar-title> Title </q-toolbar-title>
 
-        <q-toggle
-          v-model="darkMode"
-          @update:model-value="toggleDarkMode"
-          color="secondary"
-        />
+        <Toggle v-model="darkMode" @toggle="toggleDarkMode" />
       </q-toolbar>
     </q-header>
 
@@ -27,7 +23,14 @@
 <script>
 import { Dark } from "quasar";
 
+import Button from "@/components/Button";
+import Toggle from "@/components/Toggle";
+
 export default {
+  components: {
+    Button,
+    Toggle,
+  },
   data() {
     return {
       leftDrawerOpen: false,
