@@ -1,7 +1,7 @@
 <template>
   <div class="user-list q-pa-md">
     <q-card flat bordered class="q-pa-sm">
-      <h2>Lista de Usuários</h2>
+      <h2>Lista de Vídeos</h2>
     </q-card>
 
     <ul>

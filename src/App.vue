@@ -4,20 +4,28 @@
       <q-toolbar>
         <Button dense flat round icon="mdi-menu" @click="toggleLeftDrawer" />
 
-        <q-toolbar-title> Title </q-toolbar-title>
+        <q-toolbar-title> {{ currentRouteTitle }} </q-toolbar-title>
 
         <Toggle v-model="darkMode" @toggle="toggleDarkMode" />
       </q-toolbar>
     </q-header>
 
     <q-drawer show-if-above v-model="leftDrawerOpen" side="left" bordered>
-      <div>
-        <span>TITLE</span>
+      <div class="row q-pa-md items-center">
+        <div class="col-2">
+          <img :src="logo" width="40" height="40" />
+        </div>
+
+        <div class="col-8 q-ml-xs title">
+          <span>Clipper AI</span>
+        </div>
       </div>
 
+      <q-separator />
+
       <q-list>
-        <q-item clickable v-ripple to="/users">
-          <q-item-section>Users</q-item-section>
+        <q-item v-for="route in routes" clickable v-ripple :to="route.path">
+          <q-item-section>{{ route.title }}</q-item-section>
         </q-item>
       </q-list>
     </q-drawer>
@@ -31,8 +39,12 @@
 <script>
 import { Dark } from "quasar";
 
-import Button from "@/components/Button";
-import Toggle from "@/components/Toggle";
+import Button from "@components/Button";
+import Toggle from "@components/Toggle";
+
+import logo from "@assets/logo_clipperai.png";
+
+import { routes } from "./auth/router";
 
 export default {
   components: {
@@ -43,6 +55,8 @@ export default {
     return {
       leftDrawerOpen: false,
       darkMode: Dark.isActive,
+      logo,
+      routes,
     };
   },
   methods: {
@@ -53,5 +67,19 @@ export default {
       Dark.toggle();
     },
   },
+  computed: {
+    currentRouteTitle() {
+      const route = routes.find((route) => route.path === this.$route.path);
+
+      return route?.title || "N/A";
+    },
+  },
 };
 </script>
+
+<style lang="scss" scoped>
+.title {
+  font-size: 24px;
+  color: $primary;
+}
+</style>
