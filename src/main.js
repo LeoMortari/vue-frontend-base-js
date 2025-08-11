@@ -13,6 +13,8 @@ import "quasar/src/css/index.sass";
 
 import App from "./App.vue";
 
+import { router } from "./auth/router";
+
 const app = createApp(App);
 
 app.use(Quasar, {
@@ -22,5 +24,7 @@ app.use(Quasar, {
   plugins: {},
   lang: quasarLang,
 });
+
+app.use(router);
 
 app.mount("#app");

@@ -11,7 +11,15 @@
     </q-header>
 
     <q-drawer show-if-above v-model="leftDrawerOpen" side="left" bordered>
-      <!-- drawer content -->
+      <div>
+        <span>TITLE</span>
+      </div>
+
+      <q-list>
+        <q-item clickable v-ripple to="/users">
+          <q-item-section>Users</q-item-section>
+        </q-item>
+      </q-list>
     </q-drawer>
 
     <q-page-container>
