@@ -12,11 +12,7 @@
 
     <q-drawer show-if-above v-model="leftDrawerOpen" side="left" bordered>
       <div class="row q-pa-md items-center">
-        <div class="col-2">
-          <img :src="logo" width="40" height="40" />
-        </div>
-
-        <div class="col-8 q-ml-xs title">
+        <div class="col q-ml-xs title">
           <span>Clipper AI</span>
         </div>
       </div>
@@ -42,8 +38,6 @@ import { Dark } from "quasar";
 import Button from "@components/Button";
 import Toggle from "@components/Toggle";
 
-import logo from "@assets/logo_clipperai.png";
-
 import { routes } from "./auth/router";
 
 export default {
@@ -55,7 +49,6 @@ export default {
     return {
       leftDrawerOpen: false,
       darkMode: Dark.isActive,
-      logo,
       routes,
     };
   },

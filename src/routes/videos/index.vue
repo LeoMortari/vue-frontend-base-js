@@ -1,27 +1,185 @@
 <template>
   <div class="user-list q-pa-md">
-    <q-card flat bordered class="q-pa-sm">
-      <h2>Lista de Vídeos</h2>
+    <q-card flat bordered class="q-pa-sm q-mb-lg">
+      <div class="row">
+        <div class="col-4">
+          <TextField label="Nome" required />
+        </div>
+      </div>
     </q-card>
 
-    <ul>
-      <li v-for="user in users" :key="user.id">
-        {{ user.name }} - {{ user.email }}
-      </li>
-    </ul>
+    <Table :columns="columns" :rows="rows" :pagination="pagination">
+      <template #no-data>
+        <div
+          class="full-width row flex-center q-gutter-sm"
+          style="font-size: 1.3em"
+        >
+          <span> Infelizmente, não há dados para serem mostrados </span>
+        </div>
+      </template>
+    </Table>
   </div>
 </template>
 
 <script>
+import Table from "@components/Table";
+import TextField from "@components/TextField";
+
+const columns = [
+  {
+    name: "name",
+    required: true,
+    label: "Dessert (100g serving)",
+    align: "left",
+    field: (row) => row.name,
+    format: (val) => `${val}`,
+    sortable: true,
+  },
+  {
+    name: "calories",
+    align: "center",
+    label: "Calories",
+    field: "calories",
+    sortable: true,
+  },
+  { name: "fat", label: "Fat (g)", field: "fat", sortable: true },
+  { name: "carbs", label: "Carbs (g)", field: "carbs" },
+  { name: "protein", label: "Protein (g)", field: "protein" },
+  { name: "sodium", label: "Sodium (mg)", field: "sodium" },
+  {
+    name: "calcium",
+    label: "Calcium (%)",
+    field: "calcium",
+    sortable: true,
+    sort: (a, b) => parseInt(a, 10) - parseInt(b, 10),
+  },
+  {
+    name: "iron",
+    label: "Iron (%)",
+    field: "iron",
+    sortable: true,
+    sort: (a, b) => parseInt(a, 10) - parseInt(b, 10),
+  },
+];
+
+const rows = [
+  {
+    name: "Frozen Yogurt",
+    calories: 159,
+    fat: 6.0,
+    carbs: 24,
+    protein: 4.0,
+    sodium: 87,
+    calcium: "14%",
+    iron: "1%",
+  },
+  {
+    name: "Ice cream sandwich",
+    calories: 237,
+    fat: 9.0,
+    carbs: 37,
+    protein: 4.3,
+    sodium: 129,
+    calcium: "8%",
+    iron: "1%",
+  },
+  {
+    name: "Eclair",
+    calories: 262,
+    fat: 16.0,
+    carbs: 23,
+    protein: 6.0,
+    sodium: 337,
+    calcium: "6%",
+    iron: "7%",
+  },
+  {
+    name: "Cupcake",
+    calories: 305,
+    fat: 3.7,
+    carbs: 67,
+    protein: 4.3,
+    sodium: 413,
+    calcium: "3%",
+    iron: "8%",
+  },
+  {
+    name: "Gingerbread",
+    calories: 356,
+    fat: 16.0,
+    carbs: 49,
+    protein: 3.9,
+    sodium: 327,
+    calcium: "7%",
+    iron: "16%",
+  },
+  {
+    name: "Jelly bean",
+    calories: 375,
+    fat: 0.0,
+    carbs: 94,
+    protein: 0.0,
+    sodium: 50,
+    calcium: "0%",
+    iron: "0%",
+  },
+  {
+    name: "Lollipop",
+    calories: 392,
+    fat: 0.2,
+    carbs: 98,
+    protein: 0,
+    sodium: 38,
+    calcium: "0%",
+    iron: "2%",
+  },
+  {
+    name: "Honeycomb",
+    calories: 408,
+    fat: 3.2,
+    carbs: 87,
+    protein: 6.5,
+    sodium: 562,
+    calcium: "0%",
+    iron: "45%",
+  },
+  {
+    name: "Donut",
+    calories: 452,
+    fat: 25.0,
+    carbs: 51,
+    protein: 4.9,
+    sodium: 326,
+    calcium: "2%",
+    iron: "22%",
+  },
+  {
+    name: "KitKat",
+    calories: 518,
+    fat: 26.0,
+    carbs: 65,
+    protein: 7,
+    sodium: 54,
+    calcium: "12%",
+    iron: "6%",
+  },
+];
+
 export default {
   name: "UserList",
+  components: {
+    Table,
+    TextField,
+  },
   data() {
     return {
-      users: [
-        { id: 1, name: "Usuário 1", email: "usuario1@exemplo.com" },
-        { id: 2, name: "Usuário 2", email: "usuario2@exemplo.com" },
-        { id: 3, name: "Usuário 3", email: "usuario3@exemplo.com" },
-      ],
+      columns,
+      rows,
+      pagination: {
+        currentPage: 1,
+        totalPages: 1,
+        totalItems: 10,
+      },
     };
   },
 };
@@ -30,15 +188,5 @@ export default {
 <style scoped>
 .user-list {
   margin: 0 auto;
-}
-
-.user-list ul {
-  list-style: none;
-  padding: 0;
-}
-
-.user-list li {
-  padding: 8px;
-  border-bottom: 1px solid #eee;
 }
 </style>
